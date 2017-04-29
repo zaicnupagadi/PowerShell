@@ -1,7 +1,9 @@
 # PowerShell
 PowerShell Scripts
-```ruby
-require 'redcarpet'
-markdown = Redcarpet.new("Hello World!")
-puts markdown.to_html
+```powershell
+Write-Host "Siemka"
+$p= "Takie Tam"
+ForEach ($a in $p) {
+Write-Verbose "Bla"
+}
 ```
