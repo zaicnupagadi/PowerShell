@@ -16,6 +16,16 @@ All of this would be documented on this PPOSH GitHub and my private blog https:/
 
 This resource contains:
 1. Presentation from the first PPOSH meeting
+2. Instructions how to build first HTTPS DSC Pull Server
+3. Instructions how to apply basic configuration on Windows and Linux clients
+
+## Creating a test lab
+
+To create a test lab for this I would suggest having 3 machines:
+
+1. LABDSCPS01 – W2016 / DSC HTTPS Pull Server (192.168.0.33)
+2. LABDC01 – W2016 / DC / DSC Windows client (192.168.0.31)
+3. LABCENTOS01 – Centos 7 / DSC Linux client (192.168.0.32)
 
 # This is an h1 tag
 ```powershell
