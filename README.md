@@ -12,6 +12,8 @@ At the end of the path I would like us to go through complete roadmap of DSC ava
 
 All of this would be documented on this PPOSH GitHub and my private blog https://paweljarosz.wordpress.com
 
+This resource contains:
+1. Presentation from the first PPOSH meeting
 
 # This is an h1 tag
 ```powershell
