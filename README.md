@@ -23,9 +23,9 @@ This resource contains:
 
 To create a test lab for this I would suggest having 3 machines:
 
-1. LABDSCPS01 – W2016 / DSC HTTPS Pull Server (192.168.0.33)
-2. LABDC01 – W2016 / DC / DSC Windows client (192.168.0.31)
-3. LABCENTOS01 – Centos 7 / DSC Linux client (192.168.0.32)
+1. LABDSCPS01 – W2016 / DSC HTTPS Pull Server
+2. LABDC01 – W2016 / DC & CA / DSC Windows client
+3. LABCENTOS01 – Centos 7 / DSC Linux client
 
 ## Creating simple DSC pull server
 
@@ -100,6 +100,42 @@ Sample_xDSCPullServer -certificateThumbprint $WebCertThumb -RegistrationKey $Gui
  
 ##Step5: Applying DSC configration - this steps actually installs DSC pull server 
 Start-DscConfiguration -Path c:\Configs\PullServer -Wait -Verbose -Force
+```
+
+Having installed DSC pull server we now need to corelate our first client with it.
+
+First we will connect the windows client.
+
+## Connecting windows client to DSC pull server
+
+So now we have our DSC pull server configured! now we need to tell windows client to go to this server and download certain configuration (and apply it).
+
+Firstly let's create list of conditions a worstation need to meet in it's desired state - so sayign simple - what kind of software / windows features / other stuff there has to be configured.
+
+This configuration file need to be placed on the DSC pull server
+
+```powershell
+Configuration webservice
+{
+    param ($MachineName)
+        Node $MachineName
+        {
+                #Install the IIS Role
+                WindowsFeature IIS
+                {
+                    Ensure = "Present"
+                    Name = "Web-Server"
+                }
+                #Install ASP.NET 4.5
+                WindowsFeature ASP
+                {
+                    Ensure = "Present"
+                    Name = "web-Asp-Net45"
+                }
+        }
+}
+ 
+webservice -MachineName localhost 
 ```
 
 # This is an h1 tag
