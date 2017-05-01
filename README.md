@@ -35,7 +35,7 @@ To find out how to generate a certificate and build CA server please kindly take
 https://www.virtuallyboring.com/setup-microsoft-active-directory-certificate-services-ad-cs/
 http://duffney.io/Configure-HTTPS-DSC-PullServer (sections: "Creating the Web Cert" and "Exporting & Importing the Web Cert onto the PullServer")
 
-,,,,powershell
+'''powershell
 ##Step 1: Installing needed DSC module module from PowerShell gallery
 Find-Module xPSDesiredStateConfiguration | Install-Module
  
@@ -101,7 +101,7 @@ Sample_xDSCPullServer -certificateThumbprint $WebCertThumb -RegistrationKey $Gui
  
 ##Step5: Applying DSC Configration - Instaling DSC Pull Server 
 Start-DscConfiguration -Path c:\Configs\PullServer -Wait -Verbose -Force
-,,,,
+'''
 
 # This is an h1 tag
 ```powershell
