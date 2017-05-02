@@ -210,9 +210,40 @@ configuration BaseDscClientConfig
     }
 }
  
-BaseDscClientConfig 
+BaseDscClientConfig
+## File *.meta.mof will be generated, now apply it to the host
+Set-DscLocalConfigurationManager .\BaseDscClientConfig
+
+## Triggering LCM to align server with that configuration
+Start-DscConfiguration -Wait -Verbose -UseExisting
+
+## If all went correct, output you should get:
+VERBOSE: Perform operation 'Invoke CimMethod' with following parameters, ''methodName' = ApplyConfiguration,'className' = MSFT_DSCLoca
+lConfigurationManager,'namespaceName' = root/Microsoft/Windows/DesiredStateConfiguration'.
+VERBOSE: An LCM method call arrived from computer LABDC01 with user sid S-1-5-21-191450192-3335740963-707932236-500.
+VERBOSE: [LABDC01]:                            [] Starting consistency engine.
+VERBOSE: [LABDC01]:                            [] Checking consistency for current configuration.
+VERBOSE: [LABDC01]: LCM:  [ Start  Resource ]  [[WindowsFeature]IIS]
+VERBOSE: [LABDC01]: LCM:  [ Start  Test     ]  [[WindowsFeature]IIS]
+VERBOSE: [LABDC01]:                            [[WindowsFeature]IIS] The operation 'Get-WindowsFeature' started: Web-Server
+VERBOSE: [LABDC01]:                            [[WindowsFeature]IIS] The operation 'Get-WindowsFeature' succeeded: Web-Server
+VERBOSE: [LABDC01]: LCM:  [ End    Test     ]  [[WindowsFeature]IIS]  in 0.5000 seconds.
+VERBOSE: [LABDC01]: LCM:  [ Skip   Set      ]  [[WindowsFeature]IIS]
+VERBOSE: [LABDC01]: LCM:  [ End    Resource ]  [[WindowsFeature]IIS]
+VERBOSE: [LABDC01]: LCM:  [ Start  Resource ]  [[WindowsFeature]ASP]
+VERBOSE: [LABDC01]: LCM:  [ Start  Test     ]  [[WindowsFeature]ASP]
+VERBOSE: [LABDC01]:                            [[WindowsFeature]ASP] The operation 'Get-WindowsFeature' started: web-Asp-Net45
+VERBOSE: [LABDC01]:                            [[WindowsFeature]ASP] The operation 'Get-WindowsFeature' succeeded: Web-Asp-Net45
+VERBOSE: [LABDC01]: LCM:  [ End    Test     ]  [[WindowsFeature]ASP]  in 0.5160 seconds.
+VERBOSE: [LABDC01]: LCM:  [ Skip   Set      ]  [[WindowsFeature]ASP]
+VERBOSE: [LABDC01]: LCM:  [ End    Resource ]  [[WindowsFeature]ASP]
+VERBOSE: [LABDC01]:                            [] Consistency check completed.
+VERBOSE: Operation 'Invoke CimMethod' complete.
+VERBOSE: Time taken for configuration job to complete is 1.269 seconds
 
 ```
+
+
 
 # This is an h1 tag
 ```powershell
