@@ -4,7 +4,7 @@
 
 DSC was one of the topics covered on the first Polish PowerShell User Group meeting :) 
 
-## Thank you all for joining!
+## Thank you all for joining first Polish PowerShell user group meeting!
 
 On the first meeting I have highlited what is DSC, how to install it and what are the capabilities.
 
@@ -36,7 +36,13 @@ https://www.virtuallyboring.com/setup-microsoft-active-directory-certificate-ser
 
 http://duffney.io/Configure-HTTPS-DSC-PullServer (sections: "Creating the Web Cert" and "Exporting & Importing the Web Cert onto the PullServer")
 
+Having certificate generated and imported to DSC server, it is highest time to configure it!
+
+Before running these commands I would recommend creating for instance a *c:\dsc* folder, and navigating to it before running any configurations.
+
+
 ```powershell
+## [Code to run on LABDSCPS01 in c:\dsc]
 ##Step 1: Finding and installing needed DSC module module from PowerShell gallery on DSC server or authoring workstation
 Find-Module xPSDesiredStateConfiguration | Install-Module
  
@@ -120,9 +126,12 @@ This configuration file need to be placed on the DSC pull server in:
  
  ```powershell
  ConfigurationPath
- ````
+ ```
+
+Let's try to create configuration that will install IIS role on our server and also .Net 4.5:
 
 ```powershell
+## [Code to run on LABDSCPS01 in c:\dsc]
 Configuration webservice
 {
     param ($MachineName)
@@ -145,6 +154,8 @@ Configuration webservice
  
 webservice -MachineName localhost 
 ```
+
+So what it does, it creates a *.mof* file - and at this point it is all that interest us.
 
 # This is an h1 tag
 ```powershell
