@@ -131,6 +131,7 @@ This configuration file need to be placed on the DSC pull server in:
 Let's try to create configuration that will install IIS role on our server and also .Net 4.5:
 
 ```powershell
+## Creating configuration file
 ## [Code to run on LABDSCPS01 in c:\dsc]
 Configuration webservice
 {
@@ -157,12 +158,61 @@ webservice -MachineName localhost
 
 So all what it does, it creates a *.mof* file, telling the client to ensure that it has mentioned roles/features installed.
 
-Now we can rename the file as we like, so either leave it as it is, or 
+Now we can rename the file as we like, so either leave it as it is, or we rename it to computername, or we rename it to the actual configuration we would like to set, I will call it *webservice.mof*.
 
-So as mentioned we need to put it now in:
+Next thig we need to do is to generate checksum from that file. Command to avchieve it will be:
+
+```powershell
+New-DscChecksum
+```
+
+So as mentioned we need to put it this both files now in:
 
  C:\Program Files\WindowsPowerShell\DscService\Configuration
 
+All right, so at this point we got DSC server configured, created configuration files. Now we need to tell the client where is it's DSC server from which it needs to pull configuration from, and the actual configuration file which we want to apply.
+
+
+
+```powershell
+## Creating LCM configuration
+## [Code to run on LABDC01 in c:\dsc]
+[DSCLocalConfigurationManager()]
+configuration BaseDscClientConfig
+{
+    Node localhost
+    {
+        Settings
+        {
+            RefreshMode          = 'Pull'
+            RefreshFrequencyMins = 30 
+            RebootNodeIfNeeded   = $true
+            ConfigurationMode = "ApplyAndAutoCorrect"
+ 
+        }
+ 
+        ConfigurationRepositoryWeb PullSrv
+        {
+            ServerURL          = 'https://labdscps01:8080/PSDSCPullServer.svc'
+            RegistrationKey    = '875aa7df-78fa-4e71-ab1c-479d7248ab87'
+            ConfigurationNames = @('webservice')
+            AllowUnsecureConnection = $true
+        }   
+        ReportServerWeb ReptSrv
+        {
+            ServerURL          = 'https://labdscps01:8080/PSDSCPullServer.svc'
+            RegistrationKey    = '875aa7df-78fa-4e71-ab1c-479d7248ab87'
+            AllowUnsecureConnection = $true
+ 
+        }
+ 
+ 
+    }
+}
+ 
+BaseDscClientConfig 
+
+```
 
 # This is an h1 tag
 ```powershell
