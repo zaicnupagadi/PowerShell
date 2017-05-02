@@ -244,7 +244,3 @@ VERBOSE: Time taken for configuration job to complete is 1.269 seconds
 ```
 
 Now you should wait and appropriate permissions should get applied to the windows client.
-- [x] @mentions, #refs, [links](), **formatting**, and <del>tags</del> supported
-- [x] list syntax required (any unordered or ordered list supported)
-- [x] this is a complete item
-- [ ] this is an incomplete item
