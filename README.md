@@ -155,7 +155,14 @@ Configuration webservice
 webservice -MachineName localhost 
 ```
 
-So what it does, it creates a *.mof* file - and at this point it is all that interest us.
+So all what it does, it creates a *.mof* file, telling the client to ensure that it has mentioned roles/features installed.
+
+Now we can rename the file as we like, so either leave it as it is, or 
+
+So as mentioned we need to put it now in:
+
+ C:\Program Files\WindowsPowerShell\DscService\Configuration
+
 
 # This is an h1 tag
 ```powershell
