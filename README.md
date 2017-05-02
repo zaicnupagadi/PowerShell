@@ -112,7 +112,15 @@ So now we have our DSC pull server configured! now we need to tell windows clien
 
 Firstly let's create list of conditions a worstation need to meet in it's desired state - so sayign simple - what kind of software / windows features / other stuff there has to be configured.
 
-This configuration file need to be placed on the DSC pull server
+This configuration file need to be placed on the DSC pull server in:
+
+ C:\Program Files\WindowsPowerShell\DscService\Configuration
+ 
+ so the path we declared in:
+ 
+ ```powershell
+ ConfigurationPath
+ ````
 
 ```powershell
 Configuration webservice
